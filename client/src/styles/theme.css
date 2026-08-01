@@ -1,0 +1,24 @@
+:root {
+  /* Brand Colors */
+  --primary: #E85D04;
+  --primary-hover: #D9480F;
+  --accent: #FFBA08;
+
+  /* Backgrounds */
+  --background: #FFF9F4;
+  --surface: #FFFFFF;
+
+  /* Text */
+  --text: #1C1917;
+  --text-light: #78716C;
+
+  /* Status */
+  --success: #16A34A;
+  --danger: #DC2626;
+
+  /* Border */
+  --border: #F1E8DE;
+
+  /* Shadow */
+  --shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
