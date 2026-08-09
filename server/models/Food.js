@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const foodSchema = new mongoose.Schema(
   {
     name: {
@@ -37,11 +36,21 @@ const foodSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+
+    // Restaurant information
+    restaurantId: {
+      type: String,
+      required: true,
+    },
+
+    restaurantName: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
   }
 );
-
 
 module.exports = mongoose.model("Food", foodSchema);

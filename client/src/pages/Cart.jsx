@@ -1,9 +1,7 @@
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 
-
 function Cart() {
-
   const {
     cartItems,
     increaseQuantity,
@@ -11,75 +9,115 @@ function Cart() {
     removeFromCart,
   } = useCart();
 
-
   const navigate = useNavigate();
 
-
   const totalPrice = cartItems.reduce(
-    (total, item) =>
-      total + item.price * item.quantity,
+    (total, item) => total + item.price * item.quantity,
     0
   );
 
-
   return (
+    <div className="min-h-screen bg-gray-50">
 
-    <div className="max-w-5xl mx-auto px-6 py-10">
+      <div className="max-w-5xl mx-auto px-6 py-12">
 
-      <h1 className="text-4xl font-bold mb-8">
-        Your Cart 🛒
-      </h1>
+        {/* Header */}
+        <div className="mb-10">
 
-
-      {
-        cartItems.length === 0 ? (
-
-          <p className="text-gray-500 text-xl">
-            Your cart is empty
+          <p className="text-orange-500 uppercase text-xs font-bold tracking-widest mb-2">
+            FoodHub
           </p>
+
+          <h1 className="text-4xl font-bold text-gray-900">
+            Your Cart 🛒
+          </h1>
+
+          <p className="text-gray-500 mt-2">
+            Review your items before checkout.
+          </p>
+
+        </div>
+
+
+        {/* Empty Cart */}
+        {cartItems.length === 0 ? (
+
+          <div className="bg-white rounded-2xl shadow-sm p-12 text-center">
+
+            <div className="text-6xl mb-5">
+              🛒
+            </div>
+
+            <h2 className="text-2xl font-bold text-gray-900">
+              Your cart is empty
+            </h2>
+
+            <p className="text-gray-500 mt-2">
+              Add some delicious food to get started.
+            </p>
+
+            <button
+              onClick={() => navigate("/")}
+              className="mt-6 bg-orange-500 hover:bg-orange-600 text-white px-7 py-3 rounded-xl font-semibold transition"
+            >
+              Explore Restaurants
+            </button>
+
+          </div>
 
         ) : (
 
           <>
 
-            {
-              cartItems.map((item)=>(
+            {/* Cart Items */}
+            <div className="space-y-5">
+
+              {cartItems.map((item) => (
 
                 <div
-                  key={item.id}
-                  className="flex items-center justify-between bg-white shadow-md rounded-xl p-5 mb-5"
+                  key={item._id}
+                  className="bg-white shadow-sm rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-5"
                 >
 
+                  {/* Food Information */}
                   <div>
 
-                    <h2 className="text-xl font-bold">
+                    <h2 className="text-xl font-bold text-gray-900">
                       {item.name}
                     </h2>
 
+                    {item.description && (
+                      <p className="text-sm text-gray-500 mt-1">
+                        {item.description}
+                      </p>
+                    )}
 
-                    <p>
+                    <p className="text-orange-500 font-bold mt-3">
                       ₹{item.price}
                     </p>
 
 
-                    <div className="flex items-center gap-3 mt-3">
+                    {/* Quantity */}
+                    <div className="flex items-center gap-4 mt-4">
 
                       <button
-                        onClick={() => decreaseQuantity(item.id)}
-                        className="bg-gray-200 px-3 py-1 rounded"
+                        onClick={() =>
+                          decreaseQuantity(item._id)
+                        }
+                        className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-lg font-bold"
                       >
                         -
                       </button>
 
-
-                      <span>
+                      <span className="font-semibold text-lg">
                         {item.quantity}
                       </span>
 
-
                       <button
-                        onClick={() => increaseQuantity(item.id)}
-                        className="bg-orange-500 text-white px-3 py-1 rounded"
+                        onClick={() =>
+                          increaseQuantity(item._id)
+                        }
+                        className="w-9 h-9 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-bold"
                       >
                         +
                       </button>
@@ -89,61 +127,64 @@ function Cart() {
                   </div>
 
 
+                  {/* Price + Remove */}
+                  <div className="text-right">
 
-                  <div>
-
-                    <p className="text-xl font-bold text-orange-500">
+                    <p className="text-2xl font-bold text-gray-900">
                       ₹{item.price * item.quantity}
                     </p>
 
-
                     <button
-                      onClick={() => removeFromCart(item.id)}
-                      className="text-red-500 mt-3"
+                      onClick={() =>
+                        removeFromCart(item._id)
+                      }
+                      className="text-red-500 hover:text-red-600 text-sm font-medium mt-3"
                     >
                       Remove
                     </button>
 
                   </div>
 
-
                 </div>
 
-              ))
-            }
-
-
-
-            <div className="bg-gray-100 p-6 rounded-xl mt-8">
-
-              <h2 className="text-2xl font-bold">
-                Total: ₹{totalPrice}
-              </h2>
-
-
-              <button
-                onClick={() => navigate("/checkout")}
-                className="mt-5 bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600"
-              >
-                Checkout
-              </button>
-
+              ))}
 
             </div>
 
 
+            {/* Order Summary */}
+            <div className="bg-white shadow-sm rounded-2xl p-7 mt-8">
+
+              <div className="flex justify-between items-center">
+
+                <span className="text-gray-500 text-lg">
+                  Total Amount
+                </span>
+
+                <span className="text-3xl font-bold text-gray-900">
+                  ₹{totalPrice}
+                </span>
+
+              </div>
+
+
+              <button
+                onClick={() => navigate("/checkout")}
+                className="w-full mt-6 bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition"
+              >
+                Proceed to Checkout →
+              </button>
+
+            </div>
+
           </>
 
-        )
+        )}
 
-      }
-
+      </div>
 
     </div>
-
   );
-
 }
-
 
 export default Cart;

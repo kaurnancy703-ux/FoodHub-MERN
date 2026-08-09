@@ -59,6 +59,38 @@ const orderSchema = new mongoose.Schema(
       ],
       default: "Placed",
     },
+
+    // ================= PAYMENT =================
+
+    paymentMethod: {
+      type: String,
+      enum: ["Razorpay", "COD"],
+      default: "Razorpay",
+    },
+
+    paymentStatus: {
+      type: String,
+      enum: ["Pending", "Paid", "Failed"],
+      default: "Pending",
+    },
+
+    // Razorpay payment ID
+    paymentId: {
+      type: String,
+      default: null,
+    },
+
+    // Razorpay order ID
+    razorpayOrderId: {
+      type: String,
+      default: null,
+    },
+
+    // Razorpay signature
+    razorpaySignature: {
+      type: String,
+      default: null,
+    },
   },
   {
     timestamps: true,
