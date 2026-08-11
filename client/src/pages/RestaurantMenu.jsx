@@ -65,7 +65,7 @@ function RestaurantMenu() {
         setLoading(true);
 
         const response = await axios.get(
-          "http://localhost:5000/api/foods"
+          "https://foodhub-mern-1q9n.onrender.com/api/foods"
         );
 
         console.log("Foods from MongoDB:", response.data);
