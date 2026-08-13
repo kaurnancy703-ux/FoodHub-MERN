@@ -19,6 +19,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://localhost:5174",
+      "https://food-hub-mern-tau.vercel.app",
     ],
     credentials: true,
   })
